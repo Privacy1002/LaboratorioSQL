@@ -108,5 +108,62 @@ inciantheridos int,
 incianfatalidades int,
 incicautosinvolucrados int,
 primary key (incicodigo),
-foreign key (inciplaca) references auto_motores (autoplaca));
+foreign key (inciplaca) references automotores (autoplaca));
 
+
+cod_cur_estcur int auto_increment,
+doc_est_estcur varchar(11),
+fec_ini_estcur date,
+
+insert into profesor ("doc_prof", "nom_prof", "ape_prof", "cate_prof", "sal_prof")
+values (63502720, "martha", "rojas", 2, 690000),
+(91216904, "carlos", "perez", 3, 950000),
+(13826789, "maritza", "angarita", 1, 550000),
+(1098765789, "alejandra", "torres", 4, 1100000);
+
+insert into estudiante_excurso (cod_cur_estcur, doc_est_estcur, fec_ini_estcur)
+values (289011, , "2011-02-01"),
+(250067, 250069, "2011-03-01"),
+(289011, 13826787, "2011-02-01"),
+(345671, 1098764789, "2011-04-01");
+
+insert into estudiante (doc_est, nom_est, ape_est, edad_est)
+values (63502620, "maria", "perez", 2),
+(250069, "carlos jose", "lopez", 3),
+(13826787, "jonatan", "ardila", 1),
+(1098764789, "carlos", "martinez", 4);
+
+DROP TABLE estudiante ;
+
+
+insert into curso (cod_curs, nom_curs, horas_cur, valor_cur)
+values (149862, "Fundamentos de bases de datos", 40, 500000),
+(250069, "Fundamentos de SQL", 20, 3),
+(13826787, "Manejo de Mysql", 45, 550000),
+(1098764789, "Fundamentals", 60, 3000000);
+
+-- Agregar primary key --
+
+ALTER TABLE `LaboratorioSQL`.`Estudiante_excurso` 
+DROP FOREIGN KEY `estudiante_excurso_ibfk_1`;
+ALTER TABLE `LaboratorioSQL`.`Estudiante_excurso` 
+CHANGE COLUMN `doc_est_estcur` `doc_est_estcur` VARCHAR(11) NOT NULL ,
+ADD PRIMARY KEY (`cod_cur_estcur`, `doc_est_estcur`);
+;
+ALTER TABLE `LaboratorioSQL`.`Estudiante_excurso` 
+ADD CONSTRAINT `estudiante_excurso_ibfk_1`
+  FOREIGN KEY (`doc_est_estcur`)
+  REFERENCES `LaboratorioSQL`.`Estudiante` (`doc_est`);
+
+ 
+SELECT id_ped_artped, id_art_artped, articulo.tit_art, articulo.prec_art, can_art_artped 
+FROM articulo_pedido 
+INNER JOIN articulo 
+ON articulo_pedido.id_art_artped = articulo.id_art
+
+ -- Error Code: 1292. Incorrect date value: '-2012' for column 'fec_ini_estcur' at row 1
+-- Error Code: 1452. Cannot add or update a child row: a foreign key constraint fails (`laboratorio_sql`.`estudiante_excurso`, CONSTRAINT `estudiante_excurso_ibfk_1` FOREIGN KEY (`cod_cur_estcur`) REFERENCES `curso` (`cod_curs`))
+-- Error Code: 1064. You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'cod_cur_estcur int auto_increment, doc_est_estcur varchar(11), fec_ini_estcur da' at line 1
+-- Error Code: 1136. Column count doesn't match value count at row 1
+
+-- Error Code: 1824. Failed to open the referenced table 'auto_motores'
