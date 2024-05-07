@@ -213,3 +213,10 @@ values
 -- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ --
 -- Error Code: 1146. Table 'laboratorio_sql.incidententes' doesn't exist
 -- Error Code: 1146. Table 'laboratorio_sql.incidentes' doesn't exist
+
+-- CODIGO DE SQL DE CONSULTA NUMERO #23 (Visualizar todos los datos de la póliza más costosa) --
+SELECT * FROM aseguramientos WHERE asecosto = (SELECT MAX(asecosto) FROM aseguramientos);
+
+-- CODIGO DE SQL DE CONSULTA NUMERO #15 ( Mostrar los pedidos con los respectivos artículos(código, nombre, valor y cantidad pedida) --
+SELECT id_ped_artped AS ID_Pedido, id_art_artped AS ID_Articulo, articulo.tit_art AS Nombre_Articulo, articulo.prec_art AS Precio, can_art_artped AS Cantidad
+FROM articulo_pedido INNER JOIN articulo ON articulo_pedido.id_art_artped = articulo.id_art
